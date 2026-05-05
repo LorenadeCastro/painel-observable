@@ -3,6 +3,7 @@
 
 export default {
   title: "Painel LDO - SPLOR/MG",
+  base: "/painel-observable/",
   pages: [
     {name: "Visão Geral", path: "/"},
     {name: "Fonte de Recursos", path: "/fonte-recursos"},
