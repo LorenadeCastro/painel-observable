@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>LDO 2027 | Painel LDO - SPLOR/MG</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="modulepreload" href="./_observablehq/client.52168a14.js">
+<link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.277aeab8.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.31cd1366.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/a96a6bbb.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/66d82917.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/87adea64.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.2/3785bf2d.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/720b7f0a.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.1.0/d4ec0aa1.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.3/42820bfa.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.52168a14.js";
+import {registerFile} from "./_observablehq/stdlib.277aeab8.js";
+
+registerFile("./data/ldo2027.json", {"name":"./data/ldo2027.json","mimeType":"application/json","path":"./_file/data/ldo2027.4f82a58b.json","lastModified":1777565833964,"size":277289});
+
+define({id: "e5d0c72d", inputs: ["FileAttachment"], outputs: ["ldo2027"], body: async (FileAttachment) => {
+const ldo2027 = await FileAttachment("./data/ldo2027.json").json();
+return {ldo2027};
+}});
+
+define({id: "9710fa48", inputs: ["ldo2027","Inputs","view"], outputs: ["uoOpcoes","fonteOpcoes","receitaOpcoes","metodologiaOpcoes","filtroUO","filtroFonte","filtroReceita","busca","uoVal","fonteVal","receitaVal","buscaVal"], body: (ldo2027,Inputs,view) => {
+const uoOpcoes = [...new Set(ldo2027.map(d => d["Unidade Orçamentária"]).filter(Boolean))].sort();
+const fonteOpcoes = [...new Set(ldo2027.map(d => String(d["Fonte"])).filter(Boolean))].sort((a,b) => +a - +b);
+const receitaOpcoes = [...new Set(ldo2027.map(d => d["Descrição da Receita"]).filter(Boolean))].sort();
+const metodologiaOpcoes = [...new Set(ldo2027.map(d => d["Metodologia de cálculo e premissas utilizadas"]).filter(Boolean))].sort();
+
+const filtroUO = Inputs.select(["(Todas)", ...uoOpcoes], {label: "Unidade Orçamentária", value: "(Todas)"});
+const filtroFonte = Inputs.select(["(Todas)", ...fonteOpcoes], {label: "Fonte", value: "(Todas)"});
+const filtroReceita = Inputs.select(["(Todas)", ...receitaOpcoes], {label: "Classificação da Receita", value: "(Todas)"});
+const busca = Inputs.text({label: "Buscar na metodologia", placeholder: "Digite uma palavra-chave..."});
+
+const uoVal = view(filtroUO);
+const fonteVal = view(filtroFonte);
+const receitaVal = view(filtroReceita);
+const buscaVal = view(busca);
+return {uoOpcoes,fonteOpcoes,receitaOpcoes,metodologiaOpcoes,filtroUO,filtroFonte,filtroReceita,busca,uoVal,fonteVal,receitaVal,buscaVal};
+}});
+
+define({id: "66c538b9", inputs: ["ldo2027","uoVal","fonteVal","receitaVal","buscaVal"], outputs: ["dadosFiltrados","totalLDO","totalRegistros","totalUOs","valorPorUO","topUOs"], body: (ldo2027,uoVal,fonteVal,receitaVal,buscaVal) => {
+const dadosFiltrados = ldo2027.filter(d => {
+  if (uoVal !== "(Todas)" && d["Unidade Orçamentária"] !== uoVal) return false;
+  if (fonteVal !== "(Todas)" && String(d["Fonte"]) !== fonteVal) return false;
+  if (receitaVal !== "(Todas)" && d["Descrição da Receita"] !== receitaVal) return false;
+  if (buscaVal && !String(d["Metodologia de cálculo e premissas utilizadas"] || "").toLowerCase().includes(buscaVal.toLowerCase())) return false;
+  return true;
+});
+
+const totalLDO = dadosFiltrados.reduce((s, d) => s + (d["Valor LDO"] || 0), 0);
+const totalRegistros = dadosFiltrados.length;
+const totalUOs = new Set(dadosFiltrados.map(d => d["Unidade Orçamentária"])).size;
+
+// Top UOs por valor
+const valorPorUO = {};
+for (const d of dadosFiltrados) {
+  valorPorUO[d["Unidade Orçamentária"]] = (valorPorUO[d["Unidade Orçamentária"]] || 0) + (d["Valor LDO"] || 0);
+}
+const topUOs = Object.entries(valorPorUO)
+  .map(([uo, val]) => ({uo, val}))
+  .sort((a, b) => b.val - a.val)
+  .slice(0, 12);
+return {dadosFiltrados,totalLDO,totalRegistros,totalUOs,valorPorUO,topUOs};
+}});
+
+define({id: "eda5024d", mode: "inline", inputs: ["totalLDO","display"], body: async (totalLDO,display) => {
+display(await(
+(totalLDO / 1e9).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2})
+))
+}});
+
+define({id: "eddf4bd4", mode: "inline", inputs: ["totalRegistros","display"], body: async (totalRegistros,display) => {
+display(await(
+totalRegistros.toLocaleString("pt-BR")
+))
+}});
+
+define({id: "33a4199d", mode: "inline", inputs: ["totalUOs","display"], body: async (totalUOs,display) => {
+display(await(
+totalUOs
+))
+}});
+
+define({id: "0734fed1", mode: "inline", inputs: ["filtroUO","display"], body: async (filtroUO,display) => {
+display(await(
+filtroUO
+))
+}});
+
+define({id: "353d0cbe", mode: "inline", inputs: ["filtroFonte","display"], body: async (filtroFonte,display) => {
+display(await(
+filtroFonte
+))
+}});
+
+define({id: "0fe8f933", mode: "inline", inputs: ["filtroReceita","display"], body: async (filtroReceita,display) => {
+display(await(
+filtroReceita
+))
+}});
+
+define({id: "6b5fc3d4", mode: "inline", inputs: ["busca","display"], body: async (busca,display) => {
+display(await(
+busca
+))
+}});
+
+define({id: "5719e525", inputs: ["Plot","topUOs","display"], body: async (Plot,topUOs,display) => {
+display(await(
+Plot.plot({
+  marginLeft: 320,
+  height: 420,
+  x: {
+    tickFormat: d => `R$ ${(d/1e9).toFixed(1)}bi`,
+    label: "Valor LDO 2027 (R$)",
+  },
+  y: {label: null},
+  color: {scheme: "blues"},
+  marks: [
+    Plot.barX(topUOs, {
+      x: "val",
+      y: "uo",
+      fill: "val",
+      sort: {y: "-x"},
+      tip: true,
+      title: d => `${d.uo}\nR$ ${(d.val).toLocaleString("pt-BR", {minimumFractionDigits: 2})}`
+    }),
+    Plot.ruleX([0])
+  ]
+})
+))
+}});
+
+define({id: "4358104e", inputs: ["dadosFiltrados","view","Inputs"], outputs: ["brlFmt","tabelaDisplay"], body: (dadosFiltrados,view,Inputs) => {
+const brlFmt = x => x == null ? "" : x.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const tabelaDisplay = dadosFiltrados.map(d => ({
+  "UO": d["Unidade Orçamentária"],
+  "Classificação": d["Classificação da Receita"],
+  "Descrição": d["Descrição da Receita"],
+  "Fonte": d["Fonte"],
+  "Valor LDO": d["Valor LDO"],
+  "Metodologia": d["Metodologia de cálculo e premissas utilizadas"],
+}));
+
+view(Inputs.table(tabelaDisplay, {
+  format: {
+    "Valor LDO": brlFmt,
+  },
+  width: {
+    "UO": 200,
+    "Classificação": 160,
+    "Descrição": 220,
+    "Fonte": 60,
+    "Valor LDO": 130,
+    "Metodologia": 300,
+  }
+}))
+return {brlFmt,tabelaDisplay};
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Painel LDO - SPLOR/MG</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./">Visão Geral</a></li>
+    <li class="observablehq-link"><a href="./fonte-recursos">Fonte de Recursos</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./ldo-2027">LDO 2027</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#filtros">Filtros</a></li>
+<li class="observablehq-secondary-link"><a href="#top-12-uos-por-valor-ldo">Top 12 UOs por Valor LDO</a></li>
+<li class="observablehq-secondary-link"><a href="#detalhamento">Detalhamento</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:e5d0c72d:--></div>
+<div class="observablehq observablehq--block"><!--:9710fa48:--></div>
+<div class="observablehq observablehq--block"><!--:66c538b9:--></div>
+<h1 id="ldo-2027-orcamento-de-receita" tabindex="-1"><a class="observablehq-header-anchor" href="#ldo-2027-orcamento-de-receita">LDO 2027 — Orçamento de Receita</a></h1>
+<div class="painel-header">
+  <div class="metric-card accent">
+    <div class="metric-label">Total LDO 2027</div>
+    <div class="metric-value">R$ <observablehq-loading></observablehq-loading><!--:eda5024d:--> bi</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Registros Filtrados</div>
+    <div class="metric-value"><observablehq-loading></observablehq-loading><!--:eddf4bd4:--></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Unidades Orçamentárias</div>
+    <div class="metric-value"><observablehq-loading></observablehq-loading><!--:33a4199d:--></div>
+  </div>
+</div>
+<h2 id="filtros" tabindex="-1"><a class="observablehq-header-anchor" href="#filtros">Filtros</a></h2>
+<div class="filtros-grid">
+  <observablehq-loading></observablehq-loading><!--:0734fed1:-->
+  <observablehq-loading></observablehq-loading><!--:353d0cbe:-->
+  <observablehq-loading></observablehq-loading><!--:0fe8f933:-->
+  <observablehq-loading></observablehq-loading><!--:6b5fc3d4:-->
+</div>
+<h2 id="top-12-uos-por-valor-ldo" tabindex="-1"><a class="observablehq-header-anchor" href="#top-12-uos-por-valor-ldo">Top 12 UOs por Valor LDO</a></h2>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:5719e525:--></div>
+<h2 id="detalhamento" tabindex="-1"><a class="observablehq-header-anchor" href="#detalhamento">Detalhamento</a></h2>
+<div class="observablehq observablehq--block"><!--:4358104e:--></div>
+<style>
+.painel-header { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.metric-card { background: var(--theme-background-alt); border: 1px solid var(--theme-foreground-faintest); border-radius: 10px; padding: 1.2rem 2rem; min-width: 200px; }
+.metric-card.accent { background: #1e3a5f; color: white; border-color: #1e3a5f; }
+.metric-card.accent .metric-label { color: #93c5fd; }
+.metric-card.accent .metric-value { color: white; }
+.metric-label { font-size: 0.8rem; color: var(--theme-foreground-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+.metric-value { font-size: 1.8rem; font-weight: 700; color: var(--theme-foreground); }
+.filtros-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; padding: 1.2rem; background: var(--theme-background-alt); border-radius: 10px; border: 1px solid var(--theme-foreground-faintest); }
+</style>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./fonte-recursos"><span>Fonte de Recursos</span></a></nav>
+<div>Secretaria de Planejamento e Orçamento de Minas Gerais — SPLOR/MG</div>
+</footer>
+</div>
+</body>
+</html>

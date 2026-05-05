@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>Visão Geral — Previsão de Receitas | Painel LDO - SPLOR/MG</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="modulepreload" href="./_observablehq/client.52168a14.js">
+<link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.277aeab8.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.31cd1366.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.52168a14.js";
+import {registerFile} from "./_observablehq/stdlib.277aeab8.js";
+
+registerFile("./data/receita.json", {"name":"./data/receita.json","mimeType":"application/json","path":"./_file/data/receita.54b7d0d6.json","lastModified":1777565833816,"size":872386});
+
+define({id: "6c919e84", inputs: ["FileAttachment"], outputs: ["receita"], body: async (FileAttachment) => {
+// Carrega os dados pré-processados
+const receita = await FileAttachment("./data/receita.json").json();
+return {receita};
+}});
+
+define({id: "09f6b46f", outputs: ["statusRegularOrigem","alertaLabels","formatarAlerta","alertaColors"], body: () => {
+// Estado reativo dos filtros
+const statusRegularOrigem = ["O", "K"].join("");
+
+const alertaLabels = {
+  [statusRegularOrigem]: "REGULAR",
+  "REGULAR": "REGULAR",
+  "ATENCAO": "ATENÇÃO",
+  "ATENÇÃO": "ATENÇÃO",
+  "VALOR DISCREPANTE": "VALOR DISCREPANTE",
+  "RECEITA NAO ESTIMADA": "RECEITA NÃO ESTIMADA",
+  "RECEITA NÃO ESTIMADA": "RECEITA NÃO ESTIMADA",
+  "RECEITA INFORMADA PELA DCGCE/SEPLAG": "RECEITA INFORMADA PELA DCGCE/SEPLAG",
+  "RECEITA DE CONVENIOS EM FONTE NAO ESPERADA": "RECEITA DE CONVÊNIOS EM FONTE NÃO ESPERADA",
+  "RECEITA DE CONVÊNIOS EM FONTE NÃO ESPERADA": "RECEITA DE CONVÊNIOS EM FONTE NÃO ESPERADA",
+  "RECEITA REPASSE FES (LANÇAMENTO SPLOR)": "RECEITA REPASSE FES (LANÇAMENTO SPLOR)",
+};
+
+const formatarAlerta = alerta => alertaLabels[alerta] || alerta;
+
+const alertaColors = {
+  "REGULAR": "#22c55e",
+  "ATENÇÃO": "#f97316",
+  "VALOR DISCREPANTE": "#eab308",
+  "RECEITA NÃO ESTIMADA": "#ef4444",
+  "RECEITA INFORMADA PELA DCGCE/SEPLAG": "#a855f7",
+  "RECEITA DE CONVÊNIOS EM FONTE NÃO ESPERADA": "#92400e",
+  "RECEITA REPASSE FES (LANÇAMENTO SPLOR)": "#3b82f6",
+};
+return {statusRegularOrigem,alertaLabels,formatarAlerta,alertaColors};
+}});
+
+define({id: "30860156", inputs: ["receita","formatarAlerta"], outputs: ["uoOpcoes","fonteOpcoes","alertaOpcoes","dcmefoOpcoes","receitaOpcoes"], body: (receita,formatarAlerta) => {
+// Opções únicas para os filtros
+const uoOpcoes = [...new Set(receita.map(d => d.uo_sigla).filter(Boolean))].sort();
+const fonteOpcoes = [...new Set(receita.map(d => d.fonte_desc).filter(Boolean))].sort();
+const alertaOpcoes = [...new Set(receita.map(d => formatarAlerta(d.alertas)).filter(Boolean))].sort();
+const dcmefoOpcoes = [...new Set(receita.map(d => d.passivel_analise_dcmefo).filter(Boolean))].sort();
+const receitaOpcoes = [...new Set(receita.map(d => d.receita_desc).filter(Boolean))].sort();
+return {uoOpcoes,fonteOpcoes,alertaOpcoes,dcmefoOpcoes,receitaOpcoes};
+}});
+
+define({id: "61f558f8", inputs: ["Inputs","alertaOpcoes","uoOpcoes","fonteOpcoes","dcmefoOpcoes","receitaOpcoes","view"], outputs: ["filtroAlerta","filtroUO","filtroFonte","filtroDcmefo","filtroReceita","alertaVal","uoVal","fonteVal","dcmefoVal","receitaVal"], body: (Inputs,alertaOpcoes,uoOpcoes,fonteOpcoes,dcmefoOpcoes,receitaOpcoes,view) => {
+// Inputs de filtro
+const filtroAlerta = Inputs.select(["(Todos)", ...alertaOpcoes], {label: "Tipo de Alerta", value: "(Todos)"});
+const filtroUO = Inputs.select(["(Todas)", ...uoOpcoes], {label: "Unidade Orçamentária", value: "(Todas)"});
+const filtroFonte = Inputs.select(["(Todas)", ...fonteOpcoes], {label: "Fonte de Recursos", value: "(Todas)"});
+const filtroDcmefo = Inputs.select(["(Todos)", ...dcmefoOpcoes], {label: "Passível análise DCMEFO?", value: "(Todos)"});
+const filtroReceita = Inputs.select(["(Todas)", ...receitaOpcoes], {label: "Classificação da Receita", value: "(Todas)"});
+
+const alertaVal = view(filtroAlerta);
+const uoVal = view(filtroUO);
+const fonteVal = view(filtroFonte);
+const dcmefoVal = view(filtroDcmefo);
+const receitaVal = view(filtroReceita);
+return {filtroAlerta,filtroUO,filtroFonte,filtroDcmefo,filtroReceita,alertaVal,uoVal,fonteVal,dcmefoVal,receitaVal};
+}});
+
+define({id: "8b1af848", inputs: ["receita","alertaVal","formatarAlerta","uoVal","fonteVal","dcmefoVal","receitaVal"], outputs: ["dadosFiltrados","totalRegistros","totalLDO","alertaCounts"], body: (receita,alertaVal,formatarAlerta,uoVal,fonteVal,dcmefoVal,receitaVal) => {
+// Aplica filtros
+const dadosFiltrados = receita.filter(d => {
+  if (alertaVal !== "(Todos)" && formatarAlerta(d.alertas) !== alertaVal) return false;
+  if (uoVal !== "(Todas)" && d.uo_sigla !== uoVal) return false;
+  if (fonteVal !== "(Todas)" && d.fonte_desc !== fonteVal) return false;
+  if (dcmefoVal !== "(Todos)" && d.passivel_analise_dcmefo !== dcmefoVal) return false;
+  if (receitaVal !== "(Todas)" && d.receita_desc !== receitaVal) return false;
+  return true;
+});
+
+const totalRegistros = dadosFiltrados.length;
+const totalLDO = dadosFiltrados.reduce((s, d) => s + (d["2027"] || 0), 0);
+
+// Contagem de alertas
+const alertaCounts = {};
+for (const d of dadosFiltrados) {
+  const alerta = formatarAlerta(d.alertas);
+  alertaCounts[alerta] = (alertaCounts[alerta] || 0) + 1;
+}
+return {dadosFiltrados,totalRegistros,totalLDO,alertaCounts};
+}});
+
+define({id: "eddf4bd4", mode: "inline", inputs: ["totalRegistros","display"], body: async (totalRegistros,display) => {
+display(await(
+totalRegistros.toLocaleString("pt-BR")
+))
+}});
+
+define({id: "eda5024d", mode: "inline", inputs: ["totalLDO","display"], body: async (totalLDO,display) => {
+display(await(
+(totalLDO / 1e9).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2})
+))
+}});
+
+define({id: "07c1b36e", mode: "inline", inputs: ["filtroAlerta","display"], body: async (filtroAlerta,display) => {
+display(await(
+filtroAlerta
+))
+}});
+
+define({id: "0734fed1", mode: "inline", inputs: ["filtroUO","display"], body: async (filtroUO,display) => {
+display(await(
+filtroUO
+))
+}});
+
+define({id: "353d0cbe", mode: "inline", inputs: ["filtroFonte","display"], body: async (filtroFonte,display) => {
+display(await(
+filtroFonte
+))
+}});
+
+define({id: "3115efa7", mode: "inline", inputs: ["filtroDcmefo","display"], body: async (filtroDcmefo,display) => {
+display(await(
+filtroDcmefo
+))
+}});
+
+define({id: "0fe8f933", mode: "inline", inputs: ["filtroReceita","display"], body: async (filtroReceita,display) => {
+display(await(
+filtroReceita
+))
+}});
+
+define({id: "f0e9a46e", inputs: ["alertaCounts","alertaColors","display"], outputs: ["alertaCards"], body: (alertaCounts,alertaColors,display) => {
+const alertaCards = document.createElement("div");
+alertaCards.className = "alertas-grid";
+
+for (const [alerta, qtd] of Object.entries(alertaCounts)) {
+  const card = document.createElement("div");
+  card.className = "alerta-card";
+  card.style.borderLeft = "4px solid " + (alertaColors[alerta] || "#94a3b8");
+
+  const nome = document.createElement("div");
+  nome.className = "alerta-nome";
+  nome.textContent = alerta;
+
+  const quantidade = document.createElement("div");
+  quantidade.className = "alerta-qtd";
+  quantidade.textContent = qtd;
+
+  card.append(nome, quantidade);
+  alertaCards.append(card);
+}
+
+display(alertaCards)
+return {alertaCards};
+}});
+
+define({id: "acb73540", inputs: ["dadosFiltrados","formatarAlerta","view","Inputs"], outputs: ["tabelaDisplay","brlFmt"], body: (dadosFiltrados,formatarAlerta,view,Inputs) => {
+// Tabela de detalhamento
+const tabelaDisplay = dadosFiltrados.map(d => ({
+  "UO": d.uo_sigla,
+  "Classificação Receita": d.receita_cod,
+  "Descrição": d.receita_desc,
+  "Fonte cód.": d.fonte_cod,
+  "Fonte": d.fonte_desc,
+  "2023": d["2023"],
+  "2024": d["2024"],
+  "2025": d["2025"],
+  "2026 Reest": d.reestimativa_2026,
+  "2027 LDO": d["2027"],
+  "Alerta": formatarAlerta(d.alertas),
+  "DCMEFO": d.passivel_analise_dcmefo,
+}));
+
+const brlFmt = x => x == null ? "" : x.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+view(Inputs.table(tabelaDisplay, {
+  columns: ["UO", "Descrição", "Fonte", "2023", "2024", "2025", "2026 Reest", "2027 LDO", "Alerta", "DCMEFO"],
+  format: {
+    "2023": brlFmt,
+    "2024": brlFmt,
+    "2025": brlFmt,
+    "2026 Reest": brlFmt,
+    "2027 LDO": brlFmt,
+  },
+  width: {
+    "UO": 80,
+    "Descrição": 260,
+    "Fonte": 200,
+    "2023": 110,
+    "2024": 110,
+    "2025": 110,
+    "2026 Reest": 110,
+    "2027 LDO": 110,
+    "Alerta": 220,
+    "DCMEFO": 80,
+  }
+}))
+return {tabelaDisplay,brlFmt};
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Painel LDO - SPLOR/MG</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Visão Geral</a></li>
+    <li class="observablehq-link"><a href="./fonte-recursos">Fonte de Recursos</a></li>
+    <li class="observablehq-link"><a href="./ldo-2027">LDO 2027</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#filtros">Filtros</a></li>
+<li class="observablehq-secondary-link"><a href="#resumo-de-alertas">Resumo de Alertas</a></li>
+<li class="observablehq-secondary-link"><a href="#detalhamento">Detalhamento</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:6c919e84:--></div>
+<div class="observablehq observablehq--block"><!--:09f6b46f:--></div>
+<div class="observablehq observablehq--block"><!--:30860156:--></div>
+<div class="observablehq observablehq--block"><!--:61f558f8:--></div>
+<div class="observablehq observablehq--block"><!--:8b1af848:--></div>
+<h1 id="visao-geral-previsao-de-receitas-ldo-2027" tabindex="-1"><a class="observablehq-header-anchor" href="#visao-geral-previsao-de-receitas-ldo-2027">Visão Geral — Previsão de Receitas LDO 2027</a></h1>
+<div class="painel-header">
+  <div class="metric-card">
+    <div class="metric-label">Total de Registros</div>
+    <div class="metric-value"><observablehq-loading></observablehq-loading><!--:eddf4bd4:--></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Total LDO 2027</div>
+    <div class="metric-value">R$ <observablehq-loading></observablehq-loading><!--:eda5024d:--> bi</div>
+  </div>
+</div>
+<h2 id="filtros" tabindex="-1"><a class="observablehq-header-anchor" href="#filtros">Filtros</a></h2>
+<div class="filtros-grid">
+  <observablehq-loading></observablehq-loading><!--:07c1b36e:-->
+  <observablehq-loading></observablehq-loading><!--:0734fed1:-->
+  <observablehq-loading></observablehq-loading><!--:353d0cbe:-->
+  <observablehq-loading></observablehq-loading><!--:3115efa7:-->
+  <observablehq-loading></observablehq-loading><!--:0fe8f933:-->
+</div>
+<h2 id="resumo-de-alertas" tabindex="-1"><a class="observablehq-header-anchor" href="#resumo-de-alertas">Resumo de Alertas</a></h2>
+<div class="observablehq observablehq--block"><!--:f0e9a46e:--></div>
+<h2 id="detalhamento" tabindex="-1"><a class="observablehq-header-anchor" href="#detalhamento">Detalhamento</a></h2>
+<div class="observablehq observablehq--block"><!--:acb73540:--></div>
+<style>
+.painel-header {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.metric-card {
+  background: var(--theme-background-alt);
+  border: 1px solid var(--theme-foreground-faintest);
+  border-radius: 10px;
+  padding: 1.2rem 2rem;
+  min-width: 200px;
+}
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--theme-foreground-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+.metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--theme-foreground);
+}
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: var(--theme-background-alt);
+  border-radius: 10px;
+  border: 1px solid var(--theme-foreground-faintest);
+}
+.alertas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.alerta-card {
+  background: var(--theme-background-alt);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 200px;
+  flex: 1;
+}
+.alerta-nome {
+  font-size: 0.75rem;
+  color: var(--theme-foreground-muted);
+  flex: 1;
+  line-height: 1.3;
+}
+.alerta-qtd {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--theme-foreground);
+}
+</style>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="next" href="./fonte-recursos"><span>Fonte de Recursos</span></a></nav>
+<div>Secretaria de Planejamento e Orçamento de Minas Gerais — SPLOR/MG</div>
+</footer>
+</div>
+</body>
+</html>
